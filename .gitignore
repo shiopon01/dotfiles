@@ -1,0 +1,14 @@
+dot_emacs.d/elpa
+dot_emacs.d/elpa-*
+dot_emacs.d/.cask
+dot_emacs.d/straight
+dot_emacs.d/quelpa
+dot_emacs.d/auto-save-list
+dot_emacs.d/backups
+dot_emacs.d/recentf
+dot_emacs.d/transient
+temp/
+tmp/
+*~
+\#*\#
+.\#*
