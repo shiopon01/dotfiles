@@ -12,11 +12,15 @@ end
 
 -- ここまで定型文
 
--- フォントサイズ
+-- フォントサイズと透過度
+{{ if eq .chezmoi.os "darwin" }}
 config.font_size = 12.2
-config.font = wezterm.font('JetBrains Mono', { italic = false })
--- 背景の非透過率（1なら完全に透過させない）
 config.window_background_opacity = 0.90
+{{ else }}
+config.font_size = 11.5
+config.window_background_opacity = 0.98
+{{ end }}
+config.font = wezterm.font('JetBrains Mono', { italic = false })
 
 -- キーバインド
 config.keys = {
