@@ -162,6 +162,45 @@
   :config
   (helm-mode 1))
 
+;; typescript-mode
+(use-package typescript-mode
+  :mode ("\\.ts\\'" "\\.tsx\\'")
+  :config
+  (setq typescript-indent-level 4))
+
+;; web-mode
+(use-package web-mode
+  :mode ("\\.vue\\'" "\\.html\\'")
+  :config
+  (setq typescript-indent-level 4))
+
+;; ASTRO
+(define-derived-mode astro-mode web-mode "astro")
+(setq auto-mode-alist
+      (append '((".*\\.astro\\'" . astro-mode))
+              auto-mode-alist))
+
+;; eglot: Language Server Protocol client
+(use-package eglot
+  :hook ((typescript-mode . eglot-ensure)
+         (js-mode . eglot-ensure)
+         (astro-mode . eglot-ensure))
+  :config
+  ;; TypeScript用の設定
+  (add-to-list 'eglot-server-programs
+               '((typescript-mode js-mode) . ("typescript-language-server" "--stdio")))
+
+  ;; ASTRO
+  (add-to-list 'eglot-server-programs
+               '(astro-mode . ("astro-ls" "--stdio"
+                               :initializationOptions
+                               (:typescript (:tsdk "./node_modules/typescript/lib")))))
+
+  ;; 保存時に自動フォーマット
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook #'eglot-format-buffer -10 t))))
+
 ;;; カスタム設定
 
 ;; customize経由の設定を別ファイルに分離

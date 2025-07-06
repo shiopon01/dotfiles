@@ -1,0 +1,28 @@
+{{ if eq .chezmoi.os "darwin" }}
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+export PATH="/Users/shiopon01/.asdf/installs/nodejs/22.16.0/bin:$PATH"
+
+{{ else if eq .chezmoi.os "linux" }}
+
+# linux
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+PATH="/snap/bin:$PATH"
+
+{{ else }}
+
+# other operating system
+
+{{ end }}
+
+

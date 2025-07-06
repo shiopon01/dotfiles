@@ -16,61 +16,55 @@ end
 config.font_size = 12.2
 config.font = wezterm.font('JetBrains Mono', { italic = false })
 -- 背景の非透過率（1なら完全に透過させない）
-config.window_background_opacity = 0.70
-
--- 背景の非透過率（1なら完全に透過させない）
 config.window_background_opacity = 0.90
 
 -- キーバインド
 config.keys = {
-    -- ⌘ w でペインを閉じる（デフォルトではタブが閉じる）
+    -- タブ
     {
-        key = "w",
-        mods = "CMD",
-        action = wezterm.action.CloseCurrentPane { confirm = true },
+        key = 'c',
+        mods = 'CMD|CTRL',
+        action = wezterm.action.SpawnTab 'CurrentPaneDomain',
     },
-    -- ⌘ Ctrl ,で下方向にペイン分割
+    {
+        key = 'k',
+        mods = 'CMD|CTRL',
+        action = wezterm.action.CloseCurrentTab { confirm = true },
+    },
+    -- タブ移動
+    {
+        key = 'n',
+        mods = 'CMD|CTRL',
+        action = wezterm.action.ActivateTabRelative(1),
+    },
+    {
+        key = 'p',
+        mods = 'CMD|CTRL',
+        action = wezterm.action.ActivateTabRelative(-1),
+    },
+    -- ペイン
     {
         key = ",",
         mods = "CMD|CTRL",
         action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } },
     },
-    -- ⌘ Ctrl .で右方向にペイン分割
     {
         key = ".",
         mods = "CMD|CTRL",
         action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } },
     },
-    -- ⌘ Ctrl oでペインの中身を入れ替える
     {
-        key = "o",
-        mods = "CMD|CTRL",
-        action = wezterm.action.RotatePanes 'Clockwise'
-    },
-
-    -- ⌘ Ctrl hjklでペインの移動
-    {
-        key = 'h',
+        key = 'x',
         mods = 'CMD|CTRL',
-        action = wezterm.action.ActivatePaneDirection 'Left',
+        action = wezterm.action.CloseCurrentPane { confirm = true },
     },
+    -- ペイン移動
     {
-        key = 'j',
+        key = 'o',
         mods = 'CMD|CTRL',
-        action = wezterm.action.ActivatePaneDirection 'Down',
+        action = wezterm.action.ActivatePaneDirection 'Next',
     },
-    {
-        key = 'k',
-        mods = 'CMD|CTRL',
-        action = wezterm.action.ActivatePaneDirection 'Up',
-    },
-    {
-        key = 'l',
-        mods = 'CMD|CTRL',
-        action = wezterm.action.ActivatePaneDirection 'Right',
-    },
-
-    -- ⌘ Ctrl Shift hjklでペイン境界の調整
+    -- ⌘ Ctrl Shift hjkl でペイン境界の調整
     {
         key = 'h',
         mods = 'CMD|CTRL|SHIFT',
@@ -90,6 +84,13 @@ config.keys = {
         key = 'l',
         mods = 'CMD|CTRL|SHIFT',
         action = wezterm.action.AdjustPaneSize { 'Right', 2 },
+    },
+
+    -- ランチャー表示
+    {
+        key = "l",
+        mods = "ALT|CTRL",
+        action = wezterm.action.ShowLauncher,
     }
 }
 
