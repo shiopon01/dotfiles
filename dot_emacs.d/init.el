@@ -252,7 +252,7 @@
   :bind
   (("C-." . embark-act)
    ("C-;" . embark-dwim)
-   ("C-h B" . embark-bindings))
+   ("C-c e" . embark-bindings))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   :config
@@ -266,7 +266,6 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-
 ;; typescript-mode
 (use-package typescript-mode
   :mode ("\\.ts\\'" "\\.tsx\\'")
@@ -279,7 +278,7 @@
   :config
   (setq typescript-indent-level 4))
 
-;; ASTRO
+;; astro-mode
 (define-derived-mode astro-mode web-mode "astro")
 (setq auto-mode-alist
       (append '((".*\\.astro\\'" . astro-mode))
