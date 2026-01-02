@@ -15,6 +15,23 @@ export LANG=ja_JP.UTF-8
 autoload -Uz colors
 colors
 
+# WSL2色対応
+if [[ -x /usr/bin/dircolors ]]; then
+    [[ -r ~/.dircolors ]] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 ## zsh-hook 有効化
 autoload -Uz add-zsh-hook
 
@@ -124,30 +141,28 @@ bindkey "^I" menu-complete   # 展開する前に補完候補を出させる(Ctr
 
 # vcs_info
 autoload -Uz vcs_info
+autoload -Uz add-zsh-hook
 setopt prompt_subst
+
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f (%m)" # %m が git user.email
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f (%m)"
 zstyle ':vcs_info:*' actionformats '[%b|%a] %m'
+zstyle ':vcs_info:git+set-message:*' hooks git-config-user
 
 _vcs_precmd () { vcs_info }
 add-zsh-hook precmd _vcs_precmd
-
-zstyle ':vcs_info:git+set-message:*' hooks git-config-user # git リポジトリの時 set-message フックで git-config-user 呼び出し
 
 function +vi-git-config-user(){
   hook_com[misc]+=`git config user.email`
 }
 
-
 # PROMPT
-PROMPT_HOST='%{%b%F{gray}%K{blue}%} %(?.%{%F{green}%}✔.%{%F{red}%}✘)%{%F{black}%} %n@%m %{%F{blue}%}'
-PROMPT_DIR='%~%  %h '
 PROMPT='
-%* %n@%m %{$fg[$PROMPT_COLOR]%}%~[%h]%{$reset_color%} ${vcs_info_msg_0_}
-%% '
-SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n)]:${reset_color} "
+%F{cyan}%*%f %F{green}%n@%m%f %F{yellow}%~%f[%h] ${vcs_info_msg_0_}
+%# '
+SPROMPT="%F{red}(*'~'%)? もしかして %B%r%b %F{red}かな? [そう!(y), 違う!(n)]:%f "
 
 
 ## 画面分割
@@ -169,4 +184,3 @@ function re {
     fi
   fi
 }
-
