@@ -11,7 +11,7 @@ brew install chezmoi
 ### 2. Clone dotfiles
 
 ```
-chezmoi init https://github.com/shiopon01/dotfiles.git
+chezmoi init git@github.com:shiopon01/dotfiles.git
 ```
 
 ### 3. Login 1password cli
