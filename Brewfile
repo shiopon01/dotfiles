@@ -51,7 +51,7 @@ brew 'peco'
 # brew 'unrar'
 # brew 'yarn'
 # brew 'z'
-
+brew 'zoxide'
 
 ## ========== Base ==========
 # brew "fd"
