@@ -1,5 +1,5 @@
 README.md
 
 # 除外
-.emacs.d
-
+.config/emacs
+.config/tmux
