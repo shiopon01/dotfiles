@@ -3,3 +3,9 @@ README.md
 # 除外
 .config/emacs
 .config/tmux
+
+# ~/.claude は settings.json 以外を管理しない
+# (sessions/*.key, projects/*.jsonl の会話ログ, backups/.claude.json,
+#  history.jsonl, shell-snapshots, cache などは機密・ランタイム)
+.claude/*
+!.claude/settings.json

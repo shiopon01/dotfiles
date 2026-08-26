@@ -12,3 +12,8 @@ tmp/
 *~
 \#*\#
 .\#*
+
+# ~/.claude: 認証情報・会話ログ・キャッシュを公開リポジトリに載せないための保険。
+# chezmoi add でうっかり取り込んでも git には乗らないようにしておく。
+dot_claude/*
+!dot_claude/settings.json.tmpl

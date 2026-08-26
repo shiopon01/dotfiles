@@ -1,0 +1,23 @@
+# .zshenv は zsh の起動時に必ず読まれる唯一のファイル(スクリプト実行時も含む)。
+# ここでは ZDOTDIR の宣言だけを行い、以降の設定は $ZDOTDIR/.zprofile, .zshrc に置く。
+export ZDOTDIR="$HOME/.config/zsh"
+
+{{ if eq .chezmoi.os "linux" -}}
+###
+# WSL2用(tmp)
+
+export PATH="$HOME/Work/bin:$PATH"
+
+# asdf
+export PATH="$HOME/.asdf:$PATH"
+[ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
+
+# golang
+export GOPATH="$HOME/Work"
+export PATH="$PATH:$(go env GOBIN)"
+
+# Flutter
+export ANDROID_HOME=$HOME/Work/android-sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+{{- end }}
