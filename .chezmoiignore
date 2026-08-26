@@ -9,3 +9,6 @@ README.md
 #  history.jsonl, shell-snapshots, cache などは機密・ランタイム)
 .claude/*
 !.claude/settings.json
+
+# Karabiner が自動生成するバックアップ(ランタイム生成物)
+.config/karabiner/automatic_backups

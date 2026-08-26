@@ -2,7 +2,9 @@
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-export PATH="/Users/shiopon01/.asdf/installs/nodejs/22.16.0/bin:$PATH"
+# 旧: nodejs 22.16.0 への絶対パスを直接追加していたが、実体が存在せず
+#     ユーザー名もハードコードされていたため削除。node/npm/npx は
+#     asdf の shims 経由で解決される。
 
 {{ else if eq .chezmoi.os "linux" }}
 
