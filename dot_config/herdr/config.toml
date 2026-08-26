@@ -54,19 +54,20 @@ resize_mode   = "prefix+shift+r"
 reload_config = ""
 
 # agent 切り替え
-previous_agent = "prefix+["
-next_agent     = "prefix+]"
+# ペイン分割(ctrl+alt+] / ctrl+alt+\)と同じ ] \ の並びを、prefix 側で使う。
+# ctrl が付かないので ESC との衝突は起きない。
+previous_agent = "prefix+]"
+next_agent     = "prefix+backslash"
 focus_agent    = "prefix+alt+1..9"
 
 # ペイン操作
 # 注1: herdr の vertical/horizontal がどちらの分割方向を指すかはドキュメント上
 #      明示されていない。逆に感じたら下2行のキーを入れ替えること。
-# 注2: tmux では ] と \ だったが、対になっていて押しやすい [ ] にずらした。
-#      ctrl+[ は端末のレガシーエンコーディングでは ESC と同じバイトになるため、
-#      Kitty keyboard protocol が効いていない端末では ESC と区別できない。
-#      Ghostty は同プロトコルに対応しているので動く想定。効かなければ ] \ に戻す。
-split_vertical   = "ctrl+alt+["          # tmux: C-M-] split-window -h (左右に分割)
-split_horizontal = "ctrl+alt+]"          # tmux: C-M-\ split-window -v (上下に分割)
+# 注2: 一度 [ ] にずらしたが、ctrl+[ は端末のレガシーエンコーディングで ESC と
+#      同じバイトになり、Esc 連打と区別できなくなる恐れがあるため tmux と同じ
+#      ] \ に戻した。
+split_vertical   = "ctrl+alt+]"          # tmux: C-M-] split-window -h (左右に分割)
+split_horizontal = "ctrl+alt+backslash"  # tmux: C-M-\ split-window -v (上下に分割)
 close_pane       = "ctrl+alt+x"          # tmux: C-M-x kill-pane
 cycle_pane_next  = "ctrl+alt+o"          # tmux: C-M-o select-pane -t :.+
 
